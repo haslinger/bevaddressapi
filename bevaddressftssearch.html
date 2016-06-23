@@ -2,17 +2,16 @@
 <html>
    <head>
    <meta charset="UTF-8">
-      <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/yeti/bootstrap.min.css"
-            rel="stylesheet"
+      <link rel="stylesheet" type="text/css"
+            href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/yeti/bootstrap.min.css"
             integrity="sha384-yxFy3Tt84CcGRj9UI7RA25hoUMpUPoFzcdPtK3hBdNgEGnh9FdKgMVM+lbAZTKN2"
             crossorigin="anonymous">
 
-      <style> 
+      <style>
         body { padding-top: 70px; }
       </style>
 
-      <link rel="stylesheet"
-            type="text/css"
+      <link rel="stylesheet" type="text/css"
             href="https://cdn.datatables.net/u/bs/dt-1.10.12/datatables.min.css"/>
 
       <script src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -46,45 +45,28 @@
               "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/German.json"
             }
           });
-        });
 
-        function WebSocketTest()
-         {
-            if ("WebSocket" in window)
-            {
-               var ws = new WebSocket("ws://185.38.252.139:6002/ws/address/fts?q=" +
-                        document.getElementById('addressfts').value + '"');
+          //Form submission
+          $('#searchform').submit(function () {
+            if ("WebSocket" in window) {
+               var ws = new WebSocket("wss://api.bevaddress.allowed.org/ws/address/fts?q=" +
+                            $('#addressfts').val());
 
-               ws.onopen = function()
-               {
-                  // Web Socket is connected, send data using send()
-                  // ws.send("Message to send");
-               };
-
-               ws.onmessage = function (evt)
-               {
-                  var received_msg = evt.data;
-
+               ws.onmessage = function (evt) {
                   var datatable = $('#addressftsresult').DataTable();
                   datatable.clear();
-                  datatable.rows.add(JSON.parse(received_msg));
+                  datatable.rows.add(JSON.parse(evt.data));
                   datatable.draw();
-
                };
-
-               ws.onclose = function()
-               { // websocket is closed.
-               };
-            }
-
-            else
-            {
+            } else {
               alert("WebSocket NOT supported by your Browser!");
             }
-         }
+            return false;
+          });
+        });
       </script>
-
    </head>
+
    <body>
      <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
@@ -114,20 +96,14 @@
       <div class="row">
         <h1>Volltextsuche</h1>
 
-        <form>
-          <div class="form-group">
-            <label for="exampleInputEmail1">Adresse</label>
-            <input type="text"
-                   class="form-control"
-                   name="addressfts"
-                   id="addressfts"
+        <form id="searchform">
+          <div class="form-group" >
+            <label>Adresse</label>
+            <input type="text" class="form-control" id="addressfts" autofocus
                    value="Wien, erster bezirk, akademiestrasse"
                    placeholder="Wien, erster bezirk, akademiestrasse">
           </div>
-          <input type="submit" 
-                 value="Adressen abfragen" 
-                 class="btn btn-success"
-                 onSubmit="WebSocketTest()"></a>
+          <input type="submit" value="Adressen abfragen" class="btn btn-success" />
         </form>
       </div>
       <hr/>
@@ -162,4 +138,4 @@
 
     </div><!-- /.container -->
    </body>
-</html> 
+</html>
