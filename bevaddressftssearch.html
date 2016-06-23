@@ -32,8 +32,6 @@
       <script type="text/javascript">
         // DataTable initialization
         $(document).ready( function () {
-          document.getElementById('addressfts').focus();
-          
           $('#addressftsresult').DataTable({
             columns: [
                { data: "PLZ",          width: "100" },
@@ -48,6 +46,8 @@
               "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/German.json"
             }
           });
+          
+          document.getElementById('addressfts').focus(); //set focus
         });
 
         function WebSocketTest()
