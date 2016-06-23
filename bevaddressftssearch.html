@@ -32,6 +32,8 @@
       <script type="text/javascript">
         // DataTable initialization
         $(document).ready( function () {
+          $('#addressfts).focus();
+          
           $('#addressftsresult').DataTable({
             columns: [
                { data: "PLZ",          width: "100" },
@@ -118,7 +120,6 @@
           <div class="form-group">
             <label for="exampleInputEmail1">Adresse</label>
             <input type="text"
-                   autofocus="autofocus"
                    class="form-control"
                    name="addressfts"
                    id="addressfts"
