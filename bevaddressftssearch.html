@@ -114,7 +114,7 @@
       <div class="row">
         <h1>Volltextsuche</h1>
 
-        <form>
+        <form onsubmit="javascript:WebSocketTest()" >
           <div class="form-group">
             <label for="exampleInputEmail1">Adresse</label>
             <input type="text"
@@ -124,9 +124,9 @@
                    value="Wien, erster bezirk, akademiestrasse"
                    placeholder="Wien, erster bezirk, akademiestrasse">
           </div>
-          <div id="sse">
-             <input type="submit" name="Adressen abfragen" href="javascript:WebSocketTest()" class="btn btn-success"></a>
-          </div>
+          <input type="submit" 
+                 name="Adressen abfragen" 
+                 class="btn btn-success"></a>
         </form>
       </div>
       <hr/>
